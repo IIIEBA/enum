@@ -23,7 +23,7 @@ abstract class Enum
     /**
      * @var array
      */
-    private static $list;
+    private static $list = [];
 
     /**
      * Create enum object
@@ -49,7 +49,8 @@ abstract class Enum
      */
     private static function initList()
     {
-        $reflection = new \ReflectionClass(get_called_class());
+        $className  = get_called_class();
+        $reflection = new \ReflectionClass($className);
 
         $list = $reflection->getConstants();
         if (empty($list)) {
@@ -58,7 +59,7 @@ abstract class Enum
             );
         }
 
-        self::$list = [
+        self::$list[$className] = [
             'values'    => $list,
             'keys'      => array_flip($list),
         ];
@@ -70,11 +71,12 @@ abstract class Enum
      */
     public static function getList()
     {
-        if (self::$list === null) {
+        $className = get_called_class();
+        if (!isset(self::$list[$className])) {
             self::initList();
         }
 
-        return self::$list['values'];
+        return self::$list[$className]['values'];
     }
 
     /**
