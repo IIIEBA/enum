@@ -4,9 +4,43 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b17e42fe8711fb0eb0e942395ebcb507",
+    "hash": "9be18d6bc6a1ee3b243da7c4803e7414",
     "packages": [],
     "packages-dev": [
+        {
+            "name": "ashevchuk/phpunit-plus",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/IIIEBA/phpunit-plus.git",
+                "reference": "6404a85d8ed1c57f0c7ff2677b3d3def6b1bf07a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/IIIEBA/phpunit-plus/zipball/6404a85d8ed1c57f0c7ff2677b3d3def6b1bf07a",
+                "reference": "6404a85d8ed1c57f0c7ff2677b3d3def6b1bf07a",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.7",
+                "phpunit/phpunit-mock-objects": "~2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PhpUnitPlus\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Andrew shevchuk",
+                    "email": "shevchuk@be-aware.com.ua"
+                }
+            ],
+            "description": "Makes your unit-tests more compact and simpler",
+            "time": "2015-06-23 13:57:50"
+        },
         {
             "name": "doctrine/instantiator",
             "version": "1.0.5",

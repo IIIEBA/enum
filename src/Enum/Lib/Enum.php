@@ -21,33 +21,78 @@ abstract class Enum
     private $key;
 
     /**
+     * @var array
+     */
+    private static $list;
+
+    /**
      * Create enum object
-     * @param $value
+     * @param string|int $value
      * @throws EnumException
      */
     public function __construct($value)
     {
-        if(!is_scalar($value)) {
-            throw new \InvalidArgumentException('Only scalar types are allowed for value');
+        if (!is_string($value) && !is_int($value)) {
+            throw new \InvalidArgumentException('Only string or int types are allowed for value');
         }
 
-        $reflection = new \ReflectionClass($this);
-        $constants  = $reflection->getConstants();
+        $this->isValid($value);
 
-        if (count($constants) === 0) {
-            throw new EnumException('You must set at least one constant to use Enum object');
-        }
-
-        if (!in_array($value, array_values($constants))) {
-            throw new \InvalidArgumentException('Not allowed enum value was given');
-        }
-
-        $this->value = $value;
-        $this->key = array_flip($constants)[$value];
+        $this->value    = $value;
+        $this->key      = self::$list['keys'][$value];
     }
 
     /**
-     * @return mixed
+     * Init constants list for static access for them
+     */
+    private static function initList()
+    {
+        $reflection = new \ReflectionClass(get_called_class());
+
+        $list = $reflection->getConstants();
+        if (empty($list)) {
+            throw new EnumException('You must set at least one constant to use Enum object');
+        }
+
+        self::$list = [
+            'values'    => $list,
+            'keys'      => array_flip($list),
+        ];
+    }
+
+    /**
+     * Return constant list of current class
+     * @return array
+     */
+    public static function getList()
+    {
+        if (self::$list === null) {
+            self::initList();
+        }
+
+        return self::$list['values'];
+    }
+
+    /**
+     * Check value with Enum constants list
+     * @param string|int $value Any allowed scalar value
+     * @return bool
+     */
+    public static function isValid($value)
+    {
+        if (!is_string($value) && !is_int($value)) {
+            throw new \InvalidArgumentException('Only string or int types are allowed for value');
+        }
+
+        if (!in_array($value, self::getList(), true)) {
+            throw new \InvalidArgumentException('Not allowed enum value was given');
+        }
+
+        return true;
+    }
+
+    /**
+     * @return string|int
      */
     public function getValue()
     {
