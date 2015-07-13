@@ -39,9 +39,10 @@ abstract class Enum
         }
 
         $this->isValid($value);
+        $className = get_called_class();
 
         $this->value    = $value;
-        $this->key      = self::$list['keys'][$value];
+        $this->key      = self::$list[$className]['keys'][$value];
     }
 
     /**
