@@ -32,14 +32,15 @@ abstract class Enum
      */
     public function __construct($value)
     {
+        $className = get_called_class();
+
         if (!is_string($value) && !is_int($value)) {
             throw new \InvalidArgumentException(
-                "Only string or int types are allowed for value in [" . get_called_class() . "]"
+                "Only string or int types are allowed for value in [{$className}]"
             );
         }
 
         $this->isValid($value);
-        $className = get_called_class();
 
         $this->value    = $value;
         $this->key      = self::$list[$className]['keys'][$value];
@@ -56,7 +57,7 @@ abstract class Enum
         $list = $reflection->getConstants();
         if (empty($list)) {
             throw new EnumException(
-                "You must set at least one constant to use Enum object in class [" . get_called_class() . "]"
+                "You must set at least one constant to use Enum object in class [{$className}]"
             );
         }
 
@@ -87,15 +88,17 @@ abstract class Enum
      */
     public static function isValid($value)
     {
+        $className = get_called_class();
+
         if (!is_string($value) && !is_int($value)) {
             throw new \InvalidArgumentException(
-                "Only string or int types are allowed for value in class [" . get_called_class() . "]"
+                "Only string or int types are allowed for value in class [{$className}]"
             );
         }
 
         if (!in_array($value, self::getList(), true)) {
             throw new \InvalidArgumentException(
-                "Not allowed enum value [{$value}] was given to class [" . get_called_class() . "]"
+                "Not allowed enum value was given to class [{$className}]"
             );
         }
 
