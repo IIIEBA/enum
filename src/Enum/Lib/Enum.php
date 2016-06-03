@@ -89,7 +89,6 @@ abstract class Enum
     public static function isValid($value)
     {
         $className = get_called_class();
-
         if (!is_string($value) && !is_int($value)) {
             throw new \InvalidArgumentException(
                 "Only string or int types are allowed for value in class [{$className}]"
@@ -103,6 +102,18 @@ abstract class Enum
         }
 
         return true;
+    }
+
+    /**
+     * Check that current value matches exactly with giveb
+     * @param string|int $value
+     * @return bool
+     */
+    public function isEquals($value)
+    {
+        self::isValid($value);
+
+        return $this->getValue() === $value;
     }
 
     /**

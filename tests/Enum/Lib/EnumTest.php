@@ -73,6 +73,14 @@ class EnumTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($list, $foo->getList());
     }
 
+    public function testIsEquals()
+    {
+        $foo = new Foo(Foo::ONE);
+
+        $this->assertTrue($foo->isEquals(Foo::ONE));
+        $this->assertFalse($foo->isEquals(Foo::TWO));
+    }
+
     public function testGetValue()
     {
         $value  = 'two';
