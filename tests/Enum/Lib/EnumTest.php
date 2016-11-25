@@ -17,7 +17,7 @@ class EnumTest extends \PHPUnit_Framework_TestCase
     public function testConstruct()
     {
         $this->checkInputData(
-            [new ManualInput([1, 'two'])],
+            [new ManualInput([1, 'two', null])],
             function ($value) {
                 new Foo($value);
             }
@@ -26,7 +26,7 @@ class EnumTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorForValidTypesButInvalidValues()
     {
-        $values = [2, 'one'];
+        $values = [2, 'one', null];
 
         foreach ($values as $value) {
             try {
@@ -102,4 +102,5 @@ class Foo extends Enum
 {
     const ONE = 1;
     const TWO = 'two';
+    const THREE = null;
 }

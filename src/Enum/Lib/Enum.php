@@ -34,9 +34,9 @@ abstract class Enum
     {
         $className = get_called_class();
 
-        if (!is_string($value) && !is_int($value) && !is_null($value)) {
+        if (!is_string($value) && !is_int($value)) {
             throw new \InvalidArgumentException(
-                "Only string or int or null types are allowed for value in [{$className}]"
+                "Only string or int types are allowed for value in [{$className}]"
             );
         }
 
