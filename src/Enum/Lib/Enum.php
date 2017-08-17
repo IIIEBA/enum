@@ -83,17 +83,22 @@ abstract class Enum
 
     /**
      * Check value with Enum constants list
-     * @param string|int $value Any allowed scalar value
+     * @param string|int|Enum $value Any allowed scalar value
      * @return bool
      */
     public static function isValid($value)
     {
         $className = get_called_class();
+        if ($value instanceof Enum) {
+            $value = $value->getValue();
+        }
+
         if (!is_string($value) && !is_int($value)) {
             throw new \InvalidArgumentException(
                 "Only string or int types are allowed for value in class [{$className}]"
             );
         }
+
 
         if (!in_array($value, self::getList(), true)) {
             throw new \InvalidArgumentException(

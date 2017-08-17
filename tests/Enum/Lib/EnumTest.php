@@ -3,6 +3,7 @@
 namespace Tests\Enum\Lib;
 
 use Enum\Lib\Enum;
+use PHPUnit\Framework\TestCase;
 use PhpUnitPlus\Lib\Component\InputDataChecker;
 use PhpUnitPlus\Lib\Util\Custom\ManualInput;
 
@@ -10,7 +11,7 @@ use PhpUnitPlus\Lib\Util\Custom\ManualInput;
  * Class EnumTest
  * @package Tests\Enum\Lib
  */
-class EnumTest extends \PHPUnit_Framework_TestCase
+class EnumTest extends TestCase
 {
     use InputDataChecker;
 
@@ -41,7 +42,7 @@ class EnumTest extends \PHPUnit_Framework_TestCase
     public function testIsValid()
     {
         $this->checkInputData(
-            [new ManualInput([1, 'two'])],
+            [new ManualInput([1, 'two', new Foo(Foo::ONE)])],
             function ($value) {
                 Foo::isValid($value);
             }
