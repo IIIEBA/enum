@@ -111,13 +111,17 @@ abstract class Enum
 
     /**
      * Check that current value matches exactly with giveb
-     * @param string|int $value
+     * @param string|int|Enum $value
      * @return bool
      */
     public function isEquals($value)
     {
         self::isValid($value);
 
+        if ($value instanceof Enum) {
+            $value = $value->getValue();
+        }
+        
         return $this->getValue() === $value;
     }
 
